@@ -1,0 +1,29 @@
+﻿
+-- NOTES ABOUT HOW TO CLIENT MYSQL INTO A mariadb/mysql pod
+
+-- the firewall has to allow the node port #. Node Port might change if the service is re-created
+-- this is temporary connection.
+
+1. the service must be type NodePort
+-- > oc expose deployment/name --type=NodePort
+
+#  also node it's possible to assign your own nodePort# on the expose command 
+
+2. ssh into the worker node external address, like: 
+-- > ssh core@192.168.22.211 or 212
+
+3. sudo su to root
+
+4. run ip tables to add the node port:
+
+> iptables -I INPUT -p tcp --dport 'the node port in the service'
+
+5. exit out of the sudo and terminal sessions
+
+6. on the services node ... 192.168.2.177 (which can access the worker ip address:
+
+> mysql -u xxx -h 192.168.22.21x -P NODEPORT -p
+
+
+-- also see:
+https://kubernetes.io/docs/concepts/services-networking/service/ 

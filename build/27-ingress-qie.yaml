@@ -1,0 +1,23 @@
+﻿kind: Ingress
+apiVersion: networking.k8s.io/v1
+metadata:
+  annotations:
+  name: qie-ingress
+  generation: 1
+  namespace: fhir
+  labels:
+    app: qie
+spec:
+  rules:
+    - host: qie-fhir.apps.lab.ocp.lan
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: qie
+                port:
+                  number: 8088
+status:
+  loadBalancer: {}

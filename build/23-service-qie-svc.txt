@@ -1,0 +1,3 @@
+﻿# create service like :
+#
+> oc expose deployment/qie --type=NodePort

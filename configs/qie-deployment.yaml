@@ -1,0 +1,319 @@
+﻿kind: Deployment
+apiVersion: apps/v1
+metadata:
+  annotations:
+    deployment.kubernetes.io/revision: '1'
+    kubectl.kubernetes.io/last-applied-configuration: >
+      {"apiVersion":"apps/v1","kind":"Deployment","metadata":{"annotations":{"deployment.kubernetes.io/revision":"4"},"creationTimestamp":"2023-01-10T20:28:51Z","generation":4,"labels":{"app":"qie"},"managedFields":[{"apiVersion":"apps/v1","fieldsType":"FieldsV1","fieldsV1":{"f:metadata":{"f:annotations":{".":{},"f:kubectl.kubernetes.io/last-applied-configuration":{}},"f:labels":{".":{},"f:app":{}}},"f:spec":{"f:progressDeadlineSeconds":{},"f:replicas":{},"f:revisionHistoryLimit":{},"f:selector":{},"f:strategy":{"f:type":{}},"f:template":{"f:metadata":{"f:labels":{".":{},"f:app":{}},"f:name":{}},"f:spec":{"f:containers":{"k:{\"name\":\"qie\"}":{".":{},"f:env":{".":{},"k:{\"name\":\"JAVA_OPTIONS\"}":{".":{},"f:name":{},"f:value":{}},"k:{\"name\":\"JETTY_PORT\"}":{".":{},"f:name":{}},"k:{\"name\":\"connection.driver\"}":{".":{},"f:name":{},"f:valueFrom":{".":{},"f:secretKeyRef":{}}},"k:{\"name\":\"connection.password\"}":{".":{},"f:name":{},"f:valueFrom":{".":{},"f:secretKeyRef":{}}},"k:{\"name\":\"connection.url\"}":{".":{},"f:name":{},"f:valueFrom":{".":{},"f:secretKeyRef":{}}},"k:{\"name\":\"connection.username\"}":{".":{},"f:name":{},"f:valueFrom":{".":{},"f:secretKeyRef":{}}},"k:{\"name\":\"hibernate.dialect\"}":{".":{},"f:name":{},"f:valueFrom":{".":{},"f:secretKeyRef":{}}},"k:{\"name\":\"qie.containerProbePort\"}":{".":{},"f:name":{}},"k:{\"name\":\"qie.haEngine\"}":{".":{},"f:name":{},"f:value":{}}},"f:image":{},"f:imagePullPolicy":{},"f:livenessProbe":{".":{},"f:failureThreshold":{},"f:httpGet":{".":{},"f:path":{},"f:port":{},"f:scheme":{}},"f:periodSeconds":{},"f:successThreshold":{},"f:timeoutSeconds":{}},"f:name":{},"f:ports":{".":{},"k:{\"containerPort\":20001,\"protocol\":\"TCP\"}":{".":{},"f:containerPort":{},"f:name":{},"f:protocol":{}},"k:{\"containerPort\":20002,\"protocol\":\"TCP\"}":{".":{},"f:containerPort":{},"f:name":{},"f:protocol":{}}},"f:readinessProbe":{".":{},"f:failureThreshold":{},"f:httpGet":{".":{},"f:path":{},"f:port":{},"f:scheme":{}},"f:periodSeconds":{},"f:successThreshold":{},"f:timeoutSeconds":{}},"f:resources":{},"f:startupProbe":{".":{},"f:failureThreshold":{},"f:httpGet":{".":{},"f:path":{},"f:port":{},"f:scheme":{}},"f:periodSeconds":{},"f:successThreshold":{},"f:timeoutSeconds":{}},"f:terminationMessagePath":{},"f:terminationMessagePolicy":{}}},"f:dnsPolicy":{},"f:restartPolicy":{},"f:schedulerName":{},"f:securityContext":{},"f:terminationGracePeriodSeconds":{}}}}},"manager":"kubectl-client-side-apply","operation":"Update","time":"2023-01-10T20:28:51Z"},{"apiVersion":"apps/v1","fieldsType":"FieldsV1","fieldsV1":{"f:spec":{"f:template":{"f:spec":{"f:containers":{"k:{\"name\":\"qie\"}":{"f:env":{"k:{\"name\":\"JETTY_PORT\"}":{"f:value":{}},"k:{\"name\":\"qie.containerProbePort\"}":{"f:value":{}}},"f:ports":{"k:{\"containerPort\":8088,\"protocol\":\"TCP\"}":{".":{},"f:containerPort":{},"f:name":{},"f:protocol":{}},"k:{\"containerPort\":8089,\"protocol\":\"TCP\"}":{".":{},"f:containerPort":{},"f:name":{},"f:protocol":{}}}}}}}}},"manager":"Mozilla","operation":"Update","time":"2023-01-11T17:40:28Z"},{"apiVersion":"apps/v1","fieldsType":"FieldsV1","fieldsV1":{"f:metadata":{"f:annotations":{"f:deployment.kubernetes.io/revision":{}}},"f:status":{"f:availableReplicas":{},"f:conditions":{".":{},"k:{\"type\":\"Available\"}":{".":{},"f:lastTransitionTime":{},"f:lastUpdateTime":{},"f:message":{},"f:reason":{},"f:status":{},"f:type":{}},"k:{\"type\":\"Progressing\"}":{".":{},"f:lastTransitionTime":{},"f:lastUpdateTime":{},"f:message":{},"f:reason":{},"f:status":{},"f:type":{}}},"f:observedGeneration":{},"f:readyReplicas":{},"f:replicas":{},"f:updatedReplicas":{}}},"manager":"kube-controller-manager","operation":"Update","subresource":"status","time":"2023-01-28T15:53:47Z"}],"name":"qie","namespace":"fhir","resourceVersion":"16271758","uid":"d5a69837-996c-4872-88cc-d09181975f5f"},"spec":{"progressDeadlineSeconds":600,"replicas":1,"revisionHistoryLimit":10,"selector":{"matchLabels":{"app":"qie"}},"strategy":{"type":"Recreate"},"template":{"metadata":{"creationTimestamp":null,"labels":{"app":"qie"},"name":"qie"},"spec":{"containers":[{"env":[{"name":"JETTY_PORT","value":"8088"},{"name":"JAVA_OPTIONS","value":"-Xmx3G"},{"name":"qie.haEngine","value":"EnterpriseHAServiceImpl"},{"name":"qie.containerProbePort","value":"8089"},{"name":"connection.driver","valueFrom":{"secretKeyRef":{"key":"driver","name":"db-info"}}},{"name":"connection.url","valueFrom":{"secretKeyRef":{"key":"connectionurl","name":"db-info"}}},{"name":"hibernate.dialect","valueFrom":{"secretKeyRef":{"key":"dialect","name":"db-info"}}},{"name":"connection.username","valueFrom":{"secretKeyRef":{"key":"username","name":"db-info"}}},{"name":"connection.password","valueFrom":{"secretKeyRef":{"key":"password","name":"db-info"}}}],"image":"qvera/qie:5.0.50","imagePullPolicy":"IfNotPresent","livenessProbe":{"failureThreshold":3,"httpGet":{"path":"/qieStatus","port":"probe-port","scheme":"HTTP"},"periodSeconds":10,"successThreshold":1,"timeoutSeconds":1},"name":"qie","ports":[{"containerPort":8088,"name":"console-port","protocol":"TCP"},{"containerPort":8089,"name":"probe-port","protocol":"TCP"},{"containerPort":20001,"name":"rec-20001","protocol":"TCP"},{"containerPort":20002,"name":"rec-20002","protocol":"TCP"}],"readinessProbe":{"failureThreshold":10800,"httpGet":{"path":"/qieStatus","port":"probe-port","scheme":"HTTP"},"periodSeconds":2,"successThreshold":1,"timeoutSeconds":1},"resources":{},"startupProbe":{"failureThreshold":10800,"httpGet":{"path":"/qieStatus","port":"probe-port","scheme":"HTTP"},"periodSeconds":2,"successThreshold":1,"timeoutSeconds":1},"terminationMessagePath":"/dev/termination-log","terminationMessagePolicy":"File"}],"dnsPolicy":"ClusterFirst","restartPolicy":"Always","schedulerName":"default-scheduler","securityContext":{},"terminationGracePeriodSeconds":300}}},"status":{"availableReplicas":1,"conditions":[{"lastTransitionTime":"2023-01-11T17:40:28Z","lastUpdateTime":"2023-01-11T17:40:56Z","message":"ReplicaSet
+      \"qie-6597fc57df\" has successfully
+      progressed.","reason":"NewReplicaSetAvailable","status":"True","type":"Progressing"},{"lastTransitionTime":"2023-01-28T15:53:47Z","lastUpdateTime":"2023-01-28T15:53:47Z","message":"Deployment
+      has minimum
+      availability.","reason":"MinimumReplicasAvailable","status":"True","type":"Available"}],"observedGeneration":4,"readyReplicas":1,"replicas":1,"updatedReplicas":1}}
+  resourceVersion: '21969315'
+  name: qie
+  uid: f8971bf7-f71b-44b3-a108-8db905e74d3d
+  creationTimestamp: '2023-01-30T16:45:38Z'
+  generation: 1
+  managedFields:
+    - manager: kubectl-client-side-apply
+      operation: Update
+      apiVersion: apps/v1
+      time: '2023-01-30T16:45:38Z'
+      fieldsType: FieldsV1
+      fieldsV1:
+        'f:metadata':
+          'f:annotations':
+            .: {}
+            'f:kubectl.kubernetes.io/last-applied-configuration': {}
+          'f:labels':
+            .: {}
+            'f:app': {}
+        'f:spec':
+          'f:progressDeadlineSeconds': {}
+          'f:replicas': {}
+          'f:revisionHistoryLimit': {}
+          'f:selector': {}
+          'f:strategy':
+            'f:type': {}
+          'f:template':
+            'f:metadata':
+              'f:labels':
+                .: {}
+                'f:app': {}
+              'f:name': {}
+            'f:spec':
+              'f:containers':
+                'k:{"name":"qie"}':
+                  'f:image': {}
+                  'f:startupProbe':
+                    .: {}
+                    'f:failureThreshold': {}
+                    'f:httpGet':
+                      .: {}
+                      'f:path': {}
+                      'f:port': {}
+                      'f:scheme': {}
+                    'f:periodSeconds': {}
+                    'f:successThreshold': {}
+                    'f:timeoutSeconds': {}
+                  'f:terminationMessagePolicy': {}
+                  .: {}
+                  'f:resources': {}
+                  'f:livenessProbe':
+                    .: {}
+                    'f:failureThreshold': {}
+                    'f:httpGet':
+                      .: {}
+                      'f:path': {}
+                      'f:port': {}
+                      'f:scheme': {}
+                    'f:periodSeconds': {}
+                    'f:successThreshold': {}
+                    'f:timeoutSeconds': {}
+                  'f:env':
+                    'k:{"name":"qie.haEngine"}':
+                      .: {}
+                      'f:name': {}
+                      'f:value': {}
+                    'k:{"name":"connection.url"}':
+                      .: {}
+                      'f:name': {}
+                      'f:valueFrom':
+                        .: {}
+                        'f:secretKeyRef': {}
+                    'k:{"name":"JAVA_OPTIONS"}':
+                      .: {}
+                      'f:name': {}
+                      'f:value': {}
+                    'k:{"name":"JETTY_PORT"}':
+                      .: {}
+                      'f:name': {}
+                      'f:value': {}
+                    'k:{"name":"connection.driver"}':
+                      .: {}
+                      'f:name': {}
+                      'f:valueFrom':
+                        .: {}
+                        'f:secretKeyRef': {}
+                    .: {}
+                    'k:{"name":"qie.containerProbePort"}':
+                      .: {}
+                      'f:name': {}
+                      'f:value': {}
+                    'k:{"name":"connection.username"}':
+                      .: {}
+                      'f:name': {}
+                      'f:valueFrom':
+                        .: {}
+                        'f:secretKeyRef': {}
+                    'k:{"name":"hibernate.dialect"}':
+                      .: {}
+                      'f:name': {}
+                      'f:valueFrom':
+                        .: {}
+                        'f:secretKeyRef': {}
+                    'k:{"name":"connection.password"}':
+                      .: {}
+                      'f:name': {}
+                      'f:valueFrom':
+                        .: {}
+                        'f:secretKeyRef': {}
+                  'f:readinessProbe':
+                    .: {}
+                    'f:failureThreshold': {}
+                    'f:httpGet':
+                      .: {}
+                      'f:path': {}
+                      'f:port': {}
+                      'f:scheme': {}
+                    'f:periodSeconds': {}
+                    'f:successThreshold': {}
+                    'f:timeoutSeconds': {}
+                  'f:terminationMessagePath': {}
+                  'f:imagePullPolicy': {}
+                  'f:ports':
+                    .: {}
+                    'k:{"containerPort":8088,"protocol":"TCP"}':
+                      .: {}
+                      'f:containerPort': {}
+                      'f:name': {}
+                      'f:protocol': {}
+                    'k:{"containerPort":8089,"protocol":"TCP"}':
+                      .: {}
+                      'f:containerPort': {}
+                      'f:name': {}
+                      'f:protocol': {}
+                    'k:{"containerPort":20001,"protocol":"TCP"}':
+                      .: {}
+                      'f:containerPort': {}
+                      'f:name': {}
+                      'f:protocol': {}
+                    'k:{"containerPort":20002,"protocol":"TCP"}':
+                      .: {}
+                      'f:containerPort': {}
+                      'f:name': {}
+                      'f:protocol': {}
+                  'f:name': {}
+              'f:dnsPolicy': {}
+              'f:restartPolicy': {}
+              'f:schedulerName': {}
+              'f:securityContext': {}
+              'f:terminationGracePeriodSeconds': {}
+    - manager: kube-controller-manager
+      operation: Update
+      apiVersion: apps/v1
+      time: '2023-03-29T15:12:37Z'
+      fieldsType: FieldsV1
+      fieldsV1:
+        'f:metadata':
+          'f:annotations':
+            'f:deployment.kubernetes.io/revision': {}
+        'f:status':
+          'f:availableReplicas': {}
+          'f:conditions':
+            .: {}
+            'k:{"type":"Available"}':
+              .: {}
+              'f:lastTransitionTime': {}
+              'f:lastUpdateTime': {}
+              'f:message': {}
+              'f:reason': {}
+              'f:status': {}
+              'f:type': {}
+            'k:{"type":"Progressing"}':
+              .: {}
+              'f:lastTransitionTime': {}
+              'f:lastUpdateTime': {}
+              'f:message': {}
+              'f:reason': {}
+              'f:status': {}
+              'f:type': {}
+          'f:observedGeneration': {}
+          'f:readyReplicas': {}
+          'f:replicas': {}
+          'f:updatedReplicas': {}
+      subresource: status
+  namespace: fhir
+  labels:
+    app: qie
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: qie
+  template:
+    metadata:
+      name: qie
+      creationTimestamp: null
+      labels:
+        app: qie
+    spec:
+      containers:
+        - resources: {}
+          readinessProbe:
+            httpGet:
+              path: /qieStatus
+              port: probe-port
+              scheme: HTTP
+            timeoutSeconds: 1
+            periodSeconds: 2
+            successThreshold: 1
+            failureThreshold: 10800
+          terminationMessagePath: /dev/termination-log
+          name: qie
+          livenessProbe:
+            httpGet:
+              path: /qieStatus
+              port: probe-port
+              scheme: HTTP
+            timeoutSeconds: 1
+            periodSeconds: 10
+            successThreshold: 1
+            failureThreshold: 3
+          env:
+            - name: JETTY_PORT
+              value: '8088'
+            - name: JAVA_OPTIONS
+              value: '-Xmx3G'
+            - name: qie.haEngine
+              value: EnterpriseHAServiceImpl
+            - name: qie.containerProbePort
+              value: '8089'
+            - name: connection.driver
+              valueFrom:
+                secretKeyRef:
+                  name: db-info
+                  key: driver
+            - name: connection.url
+              valueFrom:
+                secretKeyRef:
+                  name: db-info
+                  key: connectionurl
+            - name: hibernate.dialect
+              valueFrom:
+                secretKeyRef:
+                  name: db-info
+                  key: dialect
+            - name: connection.username
+              valueFrom:
+                secretKeyRef:
+                  name: db-info
+                  key: username
+            - name: connection.password
+              valueFrom:
+                secretKeyRef:
+                  name: db-info
+                  key: password
+          ports:
+            - name: console-port
+              containerPort: 8088
+              protocol: TCP
+            - name: probe-port
+              containerPort: 8089
+              protocol: TCP
+            - name: rec-20001
+              containerPort: 20001
+              protocol: TCP
+            - name: rec-20002
+              containerPort: 20002
+              protocol: TCP
+          imagePullPolicy: IfNotPresent
+          startupProbe:
+            httpGet:
+              path: /qieStatus
+              port: probe-port
+              scheme: HTTP
+            timeoutSeconds: 1
+            periodSeconds: 2
+            successThreshold: 1
+            failureThreshold: 10800
+          terminationMessagePolicy: File
+          image: 'qvera/qie:5.0.50'
+      restartPolicy: Always
+      terminationGracePeriodSeconds: 300
+      dnsPolicy: ClusterFirst
+      securityContext: {}
+      schedulerName: default-scheduler
+  strategy:
+    type: Recreate
+  revisionHistoryLimit: 10
+  progressDeadlineSeconds: 600
+status:
+  observedGeneration: 1
+  replicas: 1
+  updatedReplicas: 1
+  readyReplicas: 1
+  availableReplicas: 1
+  conditions:
+    - type: Progressing
+      status: 'True'
+      lastUpdateTime: '2023-01-30T16:46:05Z'
+      lastTransitionTime: '2023-01-30T16:45:38Z'
+      reason: NewReplicaSetAvailable
+      message: ReplicaSet "qie-6597fc57df" has successfully progressed.
+    - type: Available
+      status: 'True'
+      lastUpdateTime: '2023-03-29T15:12:37Z'
+      lastTransitionTime: '2023-03-29T15:12:37Z'
+      reason: MinimumReplicasAvailable
+      message: Deployment has minimum availability.

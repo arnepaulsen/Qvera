@@ -1,0 +1,1 @@
+com.qvera.qie.persistence.MariaDB103UnicodeDialect

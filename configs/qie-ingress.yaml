@@ -1,0 +1,45 @@
+kind: Ingress
+apiVersion: networking.k8s.io/v1
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: >
+      {"apiVersion":"networking.k8s.io/v1","kind":"Ingress","metadata":{"annotations":{},"creationTimestamp":"2023-01-30T16:49:31Z","generation":1,"labels":{"app":"qie"},"managedFields":[{"apiVersion":"networking.k8s.io/v1","fieldsType":"FieldsV1","fieldsV1":{"f:metadata":{"f:annotations":{".":{},"f:kubectl.kubernetes.io/last-applied-configuration":{}}},"f:spec":{"f:rules":{}}},"manager":"kubectl-client-side-apply","operation":"Update","time":"2023-01-30T16:49:31Z"},{"apiVersion":"networking.k8s.io/v1","fieldsType":"FieldsV1","fieldsV1":{"f:metadata":{"f:labels":{".":{},"f:app":{}}}},"manager":"Mozilla","operation":"Update","time":"2023-01-30T16:50:32Z"}],"name":"qie-ingress","namespace":"fhir","resourceVersion":"17166053","uid":"81881456-1fb5-40ec-9ef9-c588508664d8"},"spec":{"rules":[{"host":"qie-svc-apps.lab.ocp.lan","http":{"paths":[{"backend":{"service":{"name":"qie-svc","port":{"number":8081}}},"path":"/","pathType":"Prefix"}]}}]},"status":{"loadBalancer":{}}}
+  resourceVersion: '21974055'
+  name: qie-ingress
+  uid: 05f2bf83-1259-4050-a1b2-ea953d3ceed3
+  creationTimestamp: '2023-03-29T15:28:08Z'
+  generation: 1
+  managedFields:
+    - manager: kubectl-client-side-apply
+      operation: Update
+      apiVersion: networking.k8s.io/v1
+      time: '2023-03-29T15:28:08Z'
+      fieldsType: FieldsV1
+      fieldsV1:
+        'f:metadata':
+          'f:annotations':
+            .: {}
+            'f:kubectl.kubernetes.io/last-applied-configuration': {}
+          'f:labels':
+            .: {}
+            'f:app': {}
+        'f:spec':
+          'f:rules': {}
+  namespace: fhir
+  labels:
+    app: qie
+spec:
+  rules:
+    - host: qie-svc-apps.lab.ocp.lan
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: qie-svc
+                port:
+                  number: 8081
+status:
+  loadBalancer: {}
+

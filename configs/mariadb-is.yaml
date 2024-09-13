@@ -1,0 +1,75 @@
+﻿kind: ImageStream
+apiVersion: image.openshift.io/v1
+metadata:
+  annotations:
+    openshift.io/generated-by: OpenShiftNewApp
+    openshift.io/image.dockerRepositoryCheck: '2022-01-07T19:30:04Z'
+  resourceVersion: '49779181'
+  name: mariadb
+  uid: e67d6d5c-705a-4d61-9e9b-72208987b618
+  creationTimestamp: '2022-01-07T19:30:02Z'
+  generation: 2
+  managedFields:
+    - manager: oc
+      operation: Update
+      apiVersion: image.openshift.io/v1
+      time: '2022-01-07T19:30:02Z'
+      fieldsType: FieldsV1
+      fieldsV1:
+        'f:metadata':
+          'f:annotations':
+            .: {}
+            'f:openshift.io/generated-by': {}
+          'f:labels':
+            .: {}
+            'f:app': {}
+            'f:app.kubernetes.io/component': {}
+            'f:app.kubernetes.io/instance': {}
+        'f:spec':
+          'f:tags':
+            .: {}
+            'k:{"name":"10.3"}':
+              .: {}
+              'f:annotations':
+                .: {}
+                'f:openshift.io/imported-from': {}
+              'f:from':
+                .: {}
+                'f:kind': {}
+                'f:name': {}
+              'f:generation': {}
+              'f:importPolicy': {}
+              'f:name': {}
+              'f:referencePolicy':
+                .: {}
+                'f:type': {}
+  namespace: fhir
+  labels:
+    app: mariadb
+    app.kubernetes.io/component: mariadb
+    app.kubernetes.io/instance: mariadb
+spec:
+  lookupPolicy:
+    local: false
+  tags:
+    - name: '10.3'
+      annotations:
+        openshift.io/imported-from: 'docker.io/mariadb:10.3'
+      from:
+        kind: DockerImage
+        name: 'docker.io/mariadb:10.3'
+      generation: 2
+      importPolicy: {}
+      referencePolicy:
+        type: Source
+status:
+  dockerImageRepository: 'image-registry.openshift-image-registry.svc:5000/fhir/mariadb'
+  tags:
+    - tag: '10.3'
+      items:
+        - created: '2022-01-07T19:30:04Z'
+          dockerImageReference: >-
+            docker.io/mariadb@sha256:2e0204389c73a586bdf61a650f62c141a78d5b96bb279a795866ace37c967f0f
+          image: >-
+            sha256:2e0204389c73a586bdf61a650f62c141a78d5b96bb279a795866ace37c967f0f
+          generation: 2

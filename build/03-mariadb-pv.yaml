@@ -1,0 +1,21 @@
+# not testeed. removed class=slow, added matchLabels app=mariadb, readWriteOnce
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: mariadb
+  finalizers:
+    - kubernetes.io/pv-protection
+spec:
+  capacity:
+    storage: 5Gi
+  matchLabels:
+    app=mariadb
+  nfs:
+    server: 192.168.22.1
+    path: /shares/mariadb-fhir
+  accessModes:
+    - ReadWriteMany
+  persistentVolumeReclaimPolicy: Retain
+  volumeMode: Filesystem
+status:
+  phase: Available

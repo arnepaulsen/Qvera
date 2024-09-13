@@ -1,0 +1,57 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: maria-np
+  namespace: fhir
+  uid: 650e74ca-31e0-43e2-b16f-2ad4605ef827
+  resourceVersion: '11777221'
+  creationTimestamp: '2023-01-10T20:41:34Z'
+  labels:
+    app: mariadb
+  managedFields:
+    - manager: Mozilla
+      operation: Update
+      apiVersion: v1
+      time: '2023-01-10T20:50:56Z'
+      fieldsType: FieldsV1
+      fieldsV1:
+        'f:metadata':
+          'f:labels':
+            .: {}
+            'f:app': {}
+        'f:spec':
+          'f:allocateLoadBalancerNodePorts': {}
+          'f:externalTrafficPolicy': {}
+          'f:internalTrafficPolicy': {}
+          'f:ports':
+            .: {}
+            'k:{"port":3306,"protocol":"TCP"}':
+              .: {}
+              'f:port': {}
+              'f:protocol': {}
+              'f:targetPort': {}
+          'f:selector': {}
+          'f:sessionAffinity': {}
+          'f:type': {}
+spec:
+  clusterIP: 172.30.210.237
+  externalTrafficPolicy: Cluster
+  ipFamilies:
+    - IPv4
+  ports:
+    - protocol: TCP
+      port: 3306
+      targetPort: 3306
+      nodePort: 30924
+  internalTrafficPolicy: Cluster
+  clusterIPs:
+    - 172.30.210.237
+  type: NodePort
+  ipFamilyPolicy: SingleStack
+  sessionAffinity: None
+  selector:
+    deployment: mariadb-2
+    deploymentconfig: mariadb
+status:
+  loadBalancer: {}
+

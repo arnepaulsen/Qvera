@@ -1,0 +1,9 @@
+# create a config map for mariadb to override max_allowed_packet
+
+> oc create configmap mariadb-config --from-file=my.cnf
+
+# if that doesn work try client into the mariadb 
+
+>  set GLOBAL max_allowed_packet=64000000;
+
+

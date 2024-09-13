@@ -1,0 +1,75 @@
+﻿kind: ImageStream
+apiVersion: image.openshift.io/v1
+metadata:
+  annotations:
+    openshift.io/generated-by: OpenShiftNewApp
+    openshift.io/image.dockerRepositoryCheck: '2021-12-09T05:36:19Z'
+  resourceVersion: '38237945'
+  name: qie
+  uid: 5d6478bb-ed09-4b0f-8b68-43394fc3d323
+  creationTimestamp: '2021-12-09T05:36:18Z'
+  generation: 2
+  managedFields:
+    - manager: oc
+      operation: Update
+      apiVersion: image.openshift.io/v1
+      time: '2021-12-09T05:36:18Z'
+      fieldsType: FieldsV1
+      fieldsV1:
+        'f:metadata':
+          'f:annotations':
+            .: {}
+            'f:openshift.io/generated-by': {}
+          'f:labels':
+            .: {}
+            'f:app': {}
+            'f:app.kubernetes.io/component': {}
+            'f:app.kubernetes.io/instance': {}
+        'f:spec':
+          'f:tags':
+            .: {}
+            'k:{"name":"latest"}':
+              .: {}
+              'f:annotations':
+                .: {}
+                'f:openshift.io/imported-from': {}
+              'f:from':
+                .: {}
+                'f:kind': {}
+                'f:name': {}
+              'f:generation': {}
+              'f:importPolicy': {}
+              'f:name': {}
+              'f:referencePolicy':
+                .: {}
+                'f:type': {}
+  namespace: fhir
+  labels:
+    app: qie
+    app.kubernetes.io/component: qie
+    app.kubernetes.io/instance: qie
+spec:
+  lookupPolicy:
+    local: false
+  tags:
+    - name: latest
+      annotations:
+        openshift.io/imported-from: qvera/qie
+      from:
+        kind: DockerImage
+        name: qvera/qie
+      generation: 2
+      importPolicy: {}
+      referencePolicy:
+        type: Source
+status:
+  dockerImageRepository: 'image-registry.openshift-image-registry.svc:5000/fhir/qie'
+  tags:
+    - tag: latest
+      items:
+        - created: '2021-12-09T05:36:19Z'
+          dockerImageReference: >-
+            qvera/qie@sha256:d1d3eed82b25f8ea0d8afd3a7c955b908458129f40b34b237a99ebfd7deb9f17
+          image: >-
+            sha256:d1d3eed82b25f8ea0d8afd3a7c955b908458129f40b34b237a99ebfd7deb9f17
+          generation: 2

@@ -1,0 +1,95 @@
+﻿kind: Service
+apiVersion: v1
+metadata:
+  name: qie-svc
+  namespace: fhir
+  uid: 68f492af-a582-44d9-a552-6865df2afde5
+  resourceVersion: '17168085'
+  creationTimestamp: '2023-01-30T16:46:52Z'
+  labels:
+    app: qie
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: >
+      {"apiVersion":"v1","kind":"Service","metadata":{"annotations":{},"labels":{"app":"qie"},"name":"qie-svc","namespace":"fhir"},"spec":{"ports":[{"name":"console-port","port":80,"targetPort":80},{"name":"rec-20001","port":20001},{"name":"rec-20002","port":20002}],"selector":{"app":"qie"},"type":"LoadBalancer"}}
+  managedFields:
+    - manager: kubectl-client-side-apply
+      operation: Update
+      apiVersion: v1
+      time: '2023-01-30T16:46:52Z'
+      fieldsType: FieldsV1
+      fieldsV1:
+        'f:metadata':
+          'f:annotations':
+            .: {}
+            'f:kubectl.kubernetes.io/last-applied-configuration': {}
+          'f:labels':
+            .: {}
+            'f:app': {}
+        'f:spec':
+          'f:allocateLoadBalancerNodePorts': {}
+          'f:externalTrafficPolicy': {}
+          'f:internalTrafficPolicy': {}
+          'f:ports':
+            .: {}
+            'k:{"port":80,"protocol":"TCP"}':
+              .: {}
+              'f:name': {}
+              'f:port': {}
+              'f:protocol': {}
+            'k:{"port":20001,"protocol":"TCP"}':
+              .: {}
+              'f:name': {}
+              'f:port': {}
+              'f:protocol': {}
+              'f:targetPort': {}
+            'k:{"port":20002,"protocol":"TCP"}':
+              .: {}
+              'f:name': {}
+              'f:port': {}
+              'f:protocol': {}
+              'f:targetPort': {}
+          'f:selector': {}
+          'f:sessionAffinity': {}
+          'f:type': {}
+    - manager: Mozilla
+      operation: Update
+      apiVersion: v1
+      time: '2023-01-30T16:57:19Z'
+      fieldsType: FieldsV1
+      fieldsV1:
+        'f:spec':
+          'f:ports':
+            'k:{"port":80,"protocol":"TCP"}':
+              'f:targetPort': {}
+spec:
+  clusterIP: 172.30.171.154
+  externalTrafficPolicy: Cluster
+  ipFamilies:
+    - IPv4
+  ports:
+    - name: console-port
+      protocol: TCP
+      port: 80
+      targetPort: 8088
+      nodePort: 32685
+    - name: rec-20001
+      protocol: TCP
+      port: 20001
+      targetPort: 20001
+      nodePort: 31372
+    - name: rec-20002
+      protocol: TCP
+      port: 20002
+      targetPort: 20002
+      nodePort: 31772
+  internalTrafficPolicy: Cluster
+  clusterIPs:
+    - 172.30.171.154
+  allocateLoadBalancerNodePorts: true
+  type: LoadBalancer
+  ipFamilyPolicy: SingleStack
+  sessionAffinity: None
+  selector:
+    app: qie
+status:
+  loadBalancer: {}

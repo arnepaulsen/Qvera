@@ -1,0 +1,68 @@
+kind: Route
+apiVersion: route.openshift.io/v1
+metadata:
+  name: qie-route
+  namespace: fhir
+  uid: d55f2eb5-d062-4c33-98d2-d54671738b63
+  resourceVersion: '21974031'
+  creationTimestamp: '2023-03-29T15:28:03Z'
+  labels:
+    app: qie
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: >
+      {"apiVersion":"route.openshift.io/v1","kind":"Route","metadata":{"annotations":{"openshift.io/host.generated":"true"},"creationTimestamp":"2023-01-30T16:48:36Z","labels":{"app":"qie"},"managedFields":[{"apiVersion":"route.openshift.io/v1","fieldsType":"FieldsV1","fieldsV1":{"f:metadata":{"f:labels":{".":{},"f:app":{}}},"f:spec":{"f:port":{".":{},"f:targetPort":{}},"f:to":{"f:kind":{},"f:name":{},"f:weight":{}},"f:wildcardPolicy":{}}},"manager":"oc","operation":"Update","time":"2023-01-30T16:48:36Z"},{"apiVersion":"route.openshift.io/v1","fieldsType":"FieldsV1","fieldsV1":{"f:status":{"f:ingress":{}}},"manager":"openshift-router","operation":"Update","subresource":"status","time":"2023-01-30T16:48:36Z"}],"name":"qie-svc","namespace":"fhir","resourceVersion":"17165486","uid":"ef35e445-e046-4439-9c23-be27c5dda542"},"spec":{"host":"qie-svc-fhir.apps.lab.ocp.lan","port":{"targetPort":"console-port"},"to":{"kind":"Service","name":"qie-svc","weight":100},"wildcardPolicy":"None"},"status":{"ingress":[{"conditions":[{"lastTransitionTime":"2023-01-30T16:48:36Z","status":"True","type":"Admitted"}],"host":"qie-svc-fhir.apps.lab.ocp.lan","routerCanonicalHostname":"router-default.apps.lab.ocp.lan","routerName":"default","wildcardPolicy":"None"}]}}
+    openshift.io/host.generated: 'true'
+  managedFields:
+    - manager: kubectl-client-side-apply
+      operation: Update
+      apiVersion: route.openshift.io/v1
+      time: '2023-03-29T15:28:03Z'
+      fieldsType: FieldsV1
+      fieldsV1:
+        'f:metadata':
+          'f:annotations':
+            .: {}
+            'f:kubectl.kubernetes.io/last-applied-configuration': {}
+            'f:openshift.io/host.generated': {}
+          'f:labels':
+            .: {}
+            'f:app': {}
+        'f:spec':
+          'f:host': {}
+          'f:port':
+            .: {}
+            'f:targetPort': {}
+          'f:to':
+            'f:kind': {}
+            'f:name': {}
+            'f:weight': {}
+          'f:wildcardPolicy': {}
+    - manager: openshift-router
+      operation: Update
+      apiVersion: route.openshift.io/v1
+      time: '2023-03-29T15:28:03Z'
+      fieldsType: FieldsV1
+      fieldsV1:
+        'f:status':
+          'f:ingress': {}
+      subresource: status
+spec:
+  host: qie-svc-fhir.apps.lab.ocp.lan
+  to:
+    kind: Service
+    name: qie-svc
+    weight: 100
+  port:
+    targetPort: console-port
+  wildcardPolicy: None
+status:
+  ingress:
+    - host: qie-svc-fhir.apps.lab.ocp.lan
+      routerName: default
+      conditions:
+        - type: Admitted
+          status: 'True'
+          lastTransitionTime: '2023-03-29T15:28:03Z'
+      wildcardPolicy: None
+      routerCanonicalHostname: router-default.apps.lab.ocp.lan
+

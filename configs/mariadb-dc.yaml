@@ -1,0 +1,274 @@
+kind: DeploymentConfig
+apiVersion: apps.openshift.io/v1
+metadata:
+  annotations:
+    openshift.io/generated-by: OpenShiftNewApp
+  resourceVersion: '102920751'
+  name: mariadb
+  uid: 6a4368db-9e53-4c7c-9019-88cde4c0c502
+  creationTimestamp: '2023-01-10T20:03:09Z'
+  generation: 4
+  managedFields:
+    - manager: oc
+      operation: Update
+      apiVersion: apps.openshift.io/v1
+      time: '2023-01-10T20:03:09Z'
+      fieldsType: FieldsV1
+      fieldsV1:
+        'f:metadata':
+          'f:annotations':
+            .: {}
+            'f:openshift.io/generated-by': {}
+          'f:labels':
+            .: {}
+            'f:app': {}
+            'f:app.kubernetes.io/component': {}
+            'f:app.kubernetes.io/instance': {}
+        'f:spec':
+          'f:replicas': {}
+          'f:selector':
+            .: {}
+            'f:deploymentconfig': {}
+          'f:strategy':
+            'f:activeDeadlineSeconds': {}
+            'f:rollingParams':
+              .: {}
+              'f:intervalSeconds': {}
+              'f:maxSurge': {}
+              'f:maxUnavailable': {}
+              'f:timeoutSeconds': {}
+              'f:updatePeriodSeconds': {}
+            'f:type': {}
+          'f:template':
+            .: {}
+            'f:metadata':
+              .: {}
+              'f:annotations':
+                .: {}
+                'f:openshift.io/generated-by': {}
+              'f:creationTimestamp': {}
+              'f:labels':
+                .: {}
+                'f:deploymentconfig': {}
+            'f:spec':
+              .: {}
+              'f:containers':
+                .: {}
+                'k:{"name":"mariadb"}':
+                  'f:volumeMounts':
+                    .: {}
+                    'k:{"mountPath":"/var/lib/mysql"}':
+                      .: {}
+                      'f:mountPath': {}
+                      'f:name': {}
+                  'f:terminationMessagePolicy': {}
+                  .: {}
+                  'f:resources': {}
+                  'f:env':
+                    .: {}
+                    'k:{"name":"MYSQL_DATABASE"}':
+                      .: {}
+                      'f:name': {}
+                      'f:value': {}
+                    'k:{"name":"MYSQL_PASSWORD"}':
+                      .: {}
+                      'f:name': {}
+                      'f:value': {}
+                    'k:{"name":"MYSQL_ROOT_PASSWORD"}':
+                      .: {}
+                      'f:name': {}
+                      'f:value': {}
+                    'k:{"name":"MYSQL_USER"}':
+                      .: {}
+                      'f:name': {}
+                      'f:value': {}
+                  'f:terminationMessagePath': {}
+                  'f:imagePullPolicy': {}
+                  'f:ports':
+                    .: {}
+                    'k:{"containerPort":3306,"protocol":"TCP"}':
+                      .: {}
+                      'f:containerPort': {}
+                      'f:protocol': {}
+                  'f:name': {}
+              'f:dnsPolicy': {}
+              'f:restartPolicy': {}
+              'f:schedulerName': {}
+              'f:securityContext': {}
+              'f:terminationGracePeriodSeconds': {}
+              'f:volumes':
+                .: {}
+                'k:{"name":"mariadb-volume-1"}':
+                  .: {}
+                  'f:name': {}
+    - manager: openshift-controller-manager
+      operation: Update
+      apiVersion: apps.openshift.io/v1
+      time: '2023-01-10T20:03:10Z'
+      fieldsType: FieldsV1
+      fieldsV1:
+        'f:spec':
+          'f:template':
+            'f:spec':
+              'f:containers':
+                'k:{"name":"mariadb"}':
+                  'f:image': {}
+          'f:triggers': {}
+    - manager: kubectl-set
+      operation: Update
+      apiVersion: apps.openshift.io/v1
+      time: '2023-01-10T20:03:17Z'
+      fieldsType: FieldsV1
+      fieldsV1:
+        'f:spec':
+          'f:template':
+            'f:spec':
+              'f:volumes':
+                'k:{"name":"mariadb-volume-1"}':
+                  'f:persistentVolumeClaim':
+                    .: {}
+                    'f:claimName': {}
+    - manager: Mozilla
+      operation: Update
+      apiVersion: apps.openshift.io/v1
+      time: '2024-04-20T15:38:28Z'
+      fieldsType: FieldsV1
+      fieldsV1:
+        'f:spec':
+          'f:paused': {}
+    - manager: openshift-controller-manager
+      operation: Update
+      apiVersion: apps.openshift.io/v1
+      time: '2024-04-22T21:09:59Z'
+      fieldsType: FieldsV1
+      fieldsV1:
+        'f:status':
+          'f:updatedReplicas': {}
+          'f:readyReplicas': {}
+          'f:conditions':
+            .: {}
+            'k:{"type":"Available"}':
+              .: {}
+              'f:lastTransitionTime': {}
+              'f:lastUpdateTime': {}
+              'f:message': {}
+              'f:status': {}
+              'f:type': {}
+            'k:{"type":"Progressing"}':
+              .: {}
+              'f:lastTransitionTime': {}
+              'f:lastUpdateTime': {}
+              'f:message': {}
+              'f:reason': {}
+              'f:status': {}
+              'f:type': {}
+          'f:details':
+            .: {}
+            'f:causes': {}
+            'f:message': {}
+          'f:replicas': {}
+          'f:availableReplicas': {}
+          'f:observedGeneration': {}
+          'f:unavailableReplicas': {}
+          'f:latestVersion': {}
+      subresource: status
+  namespace: fhir
+  labels:
+    app: mariadb
+    app.kubernetes.io/component: mariadb
+    app.kubernetes.io/instance: mariadb
+spec:
+  strategy:
+    type: Rolling
+    rollingParams:
+      updatePeriodSeconds: 1
+      intervalSeconds: 1
+      timeoutSeconds: 600
+      maxUnavailable: 25%
+      maxSurge: 25%
+    resources: {}
+    activeDeadlineSeconds: 21600
+  triggers:
+    - type: ConfigChange
+    - type: ImageChange
+      imageChangeParams:
+        automatic: true
+        containerNames:
+          - mariadb
+        from:
+          kind: ImageStreamTag
+          namespace: fhir
+          name: 'mariadb:10.3'
+        lastTriggeredImage: >-
+          docker.io/mariadb@sha256:8f60fc07abc3f0cec17de3fb37d3cc22f14cffb2fe8ae4116ad1b5ae31348e8f
+  replicas: 1
+  revisionHistoryLimit: 10
+  test: false
+  paused: true
+  selector:
+    deploymentconfig: mariadb
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        deploymentconfig: mariadb
+      annotations:
+        openshift.io/generated-by: OpenShiftNewApp
+    spec:
+      volumes:
+        - name: mariadb-volume-1
+          persistentVolumeClaim:
+            claimName: mariadb-pvc
+      containers:
+        - resources: {}
+          terminationMessagePath: /dev/termination-log
+          name: mariadb
+          env:
+            - name: MYSQL_DATABASE
+              value: qie
+            - name: MYSQL_PASSWORD
+              value: qie
+            - name: MYSQL_ROOT_PASSWORD
+              value: qie
+            - name: MYSQL_USER
+              value: qie
+          ports:
+            - containerPort: 3306
+              protocol: TCP
+          imagePullPolicy: IfNotPresent
+          volumeMounts:
+            - name: mariadb-volume-1
+              mountPath: /var/lib/mysql
+          terminationMessagePolicy: File
+          image: >-
+            docker.io/mariadb@sha256:8f60fc07abc3f0cec17de3fb37d3cc22f14cffb2fe8ae4116ad1b5ae31348e8f
+      restartPolicy: Always
+      terminationGracePeriodSeconds: 30
+      dnsPolicy: ClusterFirst
+      securityContext: {}
+      schedulerName: default-scheduler
+status:
+  observedGeneration: 4
+  details:
+    message: config change
+    causes:
+      - type: ConfigChange
+  availableReplicas: 1
+  unavailableReplicas: 0
+  latestVersion: 2
+  updatedReplicas: 1
+  conditions:
+    - type: Progressing
+      status: 'True'
+      lastUpdateTime: '2023-01-10T20:03:27Z'
+      lastTransitionTime: '2023-01-10T20:03:22Z'
+      reason: NewReplicationControllerAvailable
+      message: replication controller "mariadb-2" successfully rolled out
+    - type: Available
+      status: 'True'
+      lastUpdateTime: '2024-04-22T21:09:59Z'
+      lastTransitionTime: '2024-04-22T21:09:59Z'
+      message: Deployment config has minimum availability.
+  replicas: 1
+  readyReplicas: 1
+

@@ -1,0 +1,7 @@
+DELIMITER $$
+CREATE PROCEDURE hl7loop ()
+   insert into hl7in (message_tx) values ('ARNE');
+END $$
+DELIMITER ;
+CALL hl7loop();
+

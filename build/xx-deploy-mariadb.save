@@ -1,0 +1,41 @@
+﻿apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mariadb
+  namespace: fhir
+  labels:
+    app: mariadb
+spec:
+  selector:
+    matchLabels:
+      app: mariadb
+  template:
+    metadata:
+      labels:
+        app: mariadb
+    spec:
+      volumes:
+        - name: mariadb-volume-1
+          persistentVolumeClaim:
+            claimName: mariadb-fhir
+      containers:
+        - resources: {}
+          name: mariadb
+          env:
+            - name: MYSQL_DATABASE
+              value: qie
+            - name: MYSQL_PASSWORD
+              value: qie
+            - name: MYSQL_ROOT_PASSWORD
+              value: qie
+            - name: MYSQL_USER
+              value: qie
+          ports:
+            - containerPort: 3306
+              protocol: TCP
+          imagePullPolicy: IfNotPresent
+          volumeMounts:
+            - name: mariadb-volume-1
+              mountPath: /var/lib/mysql
+          image: >-
+            docker.io/mariadb@sha256:a4b57b620852e26f2c306c79fd8a61e22c7cd6e55d0a55d5521854ed2c370102

@@ -1,0 +1,36 @@
+# ReadWriteOnce - not sure
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: mariadb-fhir
+  namespace: fhir
+  selfLink: /api/v1/namespaces/default/persistentvolumeclaims/mariadb-fhir
+  uid: 7c00ac98-197f-497d-b314-40fd76fbd0e4
+  resourceVersion: '49415833'
+  creationTimestamp: '2022-01-06T21:25:50Z'
+  finalizers:
+    - kubernetes.io/pvc-protection
+  managedFields:
+    - manager: Mozilla
+      operation: Update
+      apiVersion: v1
+      time: '2022-01-06T21:25:50Z'
+      fieldsType: FieldsV1
+      fieldsV1:
+        'f:spec':
+          'f:accessModes': {}
+          'f:resources':
+            'f:requests':
+              .: {}
+              'f:storage': {}
+          'f:selector': {}
+          'f:volumeMode': {}
+        'f:status':
+          'f:phase': {}
+spec:
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 5Gi
+  volumeMode: Filesystem

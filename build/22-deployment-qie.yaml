@@ -1,0 +1,112 @@
+﻿# this route is not needed because the Ingress creates it automatically
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  annotations:
+    deployment.kubernetes.io/revision: '1'
+  name: qie
+  namespace: fhir
+  labels:
+    app: qie
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: qie
+  template:
+    metadata:
+      name: qie
+      creationTimestamp: null
+      labels:
+        app: qie
+    spec:
+      containers:
+        - resources: {}
+          readinessProbe:
+            httpGet:
+              path: /qieStatus
+              port: probe-port
+              scheme: HTTP
+            timeoutSeconds: 1
+            periodSeconds: 2
+            successThreshold: 1
+            failureThreshold: 10800
+          terminationMessagePath: /dev/termination-log
+          name: qie
+          livenessProbe:
+            httpGet:
+              path: /qieStatus
+              port: probe-port
+              scheme: HTTP
+            timeoutSeconds: 1
+            periodSeconds: 10
+            successThreshold: 1
+            failureThreshold: 3
+          env:
+            - name: JETTY_PORT
+              value: '8088'
+            - name: JAVA_OPTIONS
+              value: '-Xmx3G'
+            - name: qie.haEngine
+              value: EnterpriseHAServiceImpl
+            - name: qie.containerProbePort
+              value: '8089'
+            - name: connection.driver
+              valueFrom:
+                secretKeyRef:
+                  name: db-info
+                  key: driver
+            - name: connection.url
+              valueFrom:
+                secretKeyRef:
+                  name: db-info
+                  key: connectionurl
+            - name: hibernate.dialect
+              valueFrom:
+                secretKeyRef:
+                  name: db-info
+                  key: dialect
+            - name: connection.username
+              valueFrom:
+                secretKeyRef:
+                  name: db-info
+                  key: username
+            - name: connection.password
+              valueFrom:
+                secretKeyRef:
+                  name: db-info
+                  key: password
+          ports:
+            - name: console-port
+              containerPort: 8088
+              protocol: TCP
+            - name: probe-port
+              containerPort: 8089
+              protocol: TCP
+            - name: rec-20001
+              containerPort: 20001
+              protocol: TCP
+            - name: rec-20002
+              containerPort: 20002
+              protocol: TCP
+          imagePullPolicy: IfNotPresent
+          startupProbe:
+            httpGet:
+              path: /qieStatus
+              port: probe-port
+              scheme: HTTP
+            timeoutSeconds: 1
+            periodSeconds: 2
+            successThreshold: 1
+            failureThreshold: 10800
+          terminationMessagePolicy: File
+          image: 'qvera/qie:23.4.1'
+      restartPolicy: Always
+      terminationGracePeriodSeconds: 300
+      dnsPolicy: ClusterFirst
+      securityContext: {}
+      schedulerName: default-scheduler
+  strategy:
+    type: Recreate
+  revisionHistoryLimit: 10
+  progressDeadlineSeconds: 600

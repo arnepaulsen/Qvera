@@ -1,0 +1,48 @@
+﻿# add env variable max_allowed_packet = 64M as per qvera
+# removed max_allowed_packet from the env, doesn't work there
+# point to the configmap instead
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mariadb
+  namespace: fhir
+  labels:
+    app: mariadb
+spec:
+  selector:
+    matchLabels:
+      app: mariadb
+  template:
+    metadata:
+      labels:
+        app: mariadb
+    spec:
+      volumes:
+        - name: mariadb-volume-1
+          persistentVolumeClaim:
+            claimName: mariadb-fhir
+        - name: config-volume
+          configMap:
+            name: mariadb-config
+      containers:
+        - resources: {}
+          name: mariadb
+          image: mariadb:10.3
+          env:
+            - name: MYSQL_DATABASE
+              value: qie
+            - name: MYSQL_PASSWORD
+              value: qie
+            - name: MYSQL_ROOT_PASSWORD
+              value: qie
+            - name: MYSQL_USER
+              value: qie
+          ports:
+            - containerPort: 3306
+              protocol: TCP
+          imagePullPolicy: IfNotPresent
+          volumeMounts:
+            - name: mariadb-volume-1
+              mountPath: /var/lib/mysql
+            - name: config-volume
+              mountPath: /etc/mysql/conf.d
